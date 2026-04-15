@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/danicruck/Code/P2/prac3",
+            "binaryPath": "/home/danicruck/Code/P2/prac3/prac3",
+            "binaryArgs": []
+        }
+    ]
+}
