@@ -11,11 +11,12 @@ class Coordinate{
         int row;
         int column;
     public:
-        Coordinate(int row = 0, int col = 0);
+        Coordinate();
+        Coordinate(int row, int col);
         ~Coordinate();
         int getRow() const {return row;}
         int getColumn() const {return column;}
-        Coordinate add(const Coordinate &other) {return row + other.getRow(), column + other.getColumn();}
+        Coordinate add(const Coordinate &other) const;
         
 };
 

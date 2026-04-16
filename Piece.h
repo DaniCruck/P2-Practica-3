@@ -4,6 +4,7 @@
 #include "Shape.h"
 #include "Coordinate.h"
 #include <vector>
+#include <iostream>
 
 class Piece{
     friend ostream& operator<<(ostream &os, Piece &p);
