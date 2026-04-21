@@ -11,14 +11,14 @@ class Gameboard{
     private:
         unsigned int height;
         unsigned int width;
-        vector<Piece> ***board;
+        Piece ***board;
     public:
         Gameboard(unsigned int height = 10, unsigned int width = 10);
         ~Gameboard();
         unsigned int getHeight() const {return height;}
         unsigned int getWidth() const {return width;}
-        Piece *getContent();
-        void setConten(int row, int column, Piece *p);
+        Piece *getContent(unsigned int row, unsigned int column) const;
+        void setContent(unsigned int row,unsigned int column, Piece *p);
         void putPiece(const Coordinate &c, Piece *p);
         void removePiece(Piece *p);
         bool isLocationFree(const Coordinate &c, Piece *p) const;
