@@ -44,7 +44,7 @@ void Gameboard::setContent(unsigned int row,unsigned int column, Piece* p){
 void Gameboard::putPiece(const Coordinate &c, Piece *p){
     vector<Coordinate> piecePosition = p->getFinalPositions(c);
 
-    for(int i = 0; i < piecePosition.size(); i++){
+    for(unsigned int i = 0; i < piecePosition.size(); i++){
         Coordinate pos = piecePosition[i];
         setContent(pos.getRow(), pos.getColumn(),p);
     }
@@ -52,7 +52,7 @@ void Gameboard::putPiece(const Coordinate &c, Piece *p){
 
 void Gameboard::removePiece(Piece* p){
     for(unsigned int i = 0; i < height; i++){
-        for(unsigned int j = 0; i < width; j++){
+        for(unsigned int j = 0; j < width; j++){
             if(board[i][j] == p){
                 board[i][j] = NULL;
             }
@@ -64,8 +64,8 @@ bool Gameboard::isLocationFree(const Coordinate &c, Piece *p) const{
     bool isFree = true;
     vector<Coordinate> positions = p->getFinalPositions(c);
     for(unsigned int i = 0; i < positions.size() && isFree; i++){
-        int row = positions[i].getRow();
-        int col = positions[i].getColumn();
+        unsigned int row = positions[i].getRow();
+        unsigned int col = positions[i].getColumn();
         
         // 1. Si se sale del tablero, ya no está libre
         if(row < 0 || row >= height || col < 0 || col >= width){
@@ -100,7 +100,7 @@ ostream& operator<<(ostream &os, Gameboard &g){
                 os << "#";
             }
         }
-        os << '|\n';
+        os << "|\n";
     }
     for(unsigned int i = 0; i < g.getWidth(); i++){
         os << "=";

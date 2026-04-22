@@ -24,4 +24,4 @@ class Gameboard{
         bool isLocationFree(const Coordinate &c, Piece *p) const;
 };
 
-#endif GAMEBOARD_H
+#endif

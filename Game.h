@@ -21,7 +21,7 @@ class Game{
         void moveLeft();
         void moveRight();
         void moveDown();
-        void rotateCloclwise();
+        void rotateClockwise();
         void rotateCounterClockwise();
         bool isPieceFixed() const;
         bool isGameOver() const;
@@ -32,4 +32,4 @@ class Game{
         void setCurrentPosition(const Coordinate &c); 
 };
 
-#endif GAME_H
+#endif

@@ -101,16 +101,17 @@ ostream &operator<<(ostream &os, const Piece &p){
     os << "fixed=" << p.isFixed() << ", " << "orientation=";
     switch(p.getOrientation()){
         case D0:
-            os << "0]" << '\n';
+            os << "0]" << "'\n";
             break;
         case D90:
-            os << "90]" << '\n';
+            os << "90]" << "'\n";
             break;
         case D180:
-            os << "180]" << '\n';
+            os << "180]" << "'\n";
             break;
         case D270:
-            os << "270]" << '\n';
+            os << "270]" << "'\n";
             break;
     }
+    return os;
 }

@@ -26,4 +26,4 @@ class Piece{
         vector<Coordinate> getFinalPositions(const Coordinate &c) const;
 };
 
-#endif PIECE_H
+#endif
