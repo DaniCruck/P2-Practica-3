@@ -1,13 +1,11 @@
-#ifndef GAMEBOARD_H
-#define GAMEBOARD_H
-
+// DNI 55392060X ILIEV ARKHIPOV , DANIEL VALERIEV
+#ifndef _GAMEBOARD_H_
+#define _GAMEBOARD_H_
 #include "Piece.h"
-#include "Coordinate.h"
-#include <vector>
-#include <iostream>
+#include <stdexcept>
 
 class Gameboard{
-    friend ostream& operator<<(ostream &os, Gameboard &g);
+    friend ostream& operator<<(ostream &os, const Gameboard &g);
     private:
         unsigned int height;
         unsigned int width;
@@ -17,8 +15,8 @@ class Gameboard{
         ~Gameboard();
         unsigned int getHeight() const {return height;}
         unsigned int getWidth() const {return width;}
-        Piece *getContent(unsigned int row, unsigned int column) const;
-        void setContent(unsigned int row,unsigned int column, Piece *p);
+        Piece *getContent(int row, int col) const;
+        void setContent(int row,int column,Piece *p);
         void putPiece(const Coordinate &c, Piece *p);
         void removePiece(Piece *p);
         bool isLocationFree(const Coordinate &c, Piece *p) const;

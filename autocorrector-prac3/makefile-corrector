@@ -1,0 +1,88 @@
+all: prac3 testAC-Coordinate testAC-Piece testAC-Gameboard testAC-Game testPiece-1 testPiece-2 testGameboard-1 testGameboard-2 testGame-1 testGame-2
+
+CORRDIR=autocorrector-prac3
+
+CXXTESTGEN=$(CORRDIR)/test/cxxtestgen.pl
+CXXTESTSUITEACCOORDINATE=$(CORRDIR)/test/p3TestSuiteAC-Coordinate.h
+CXXTESTSUITEACPIECE=$(CORRDIR)/test/p3TestSuiteAC-Piece.h
+CXXTESTSUITEACGAMEBOARD=$(CORRDIR)/test/p3TestSuiteAC-Gameboard.h
+CXXTESTSUITEACGAME=$(CORRDIR)/test/p3TestSuiteAC-Game.h
+
+OPTS=-Wall -g -std=c++11
+OBJS=Coordinate.o Shape.o Piece.o Gameboard.o Game.o
+CC=g++
+
+prac3: $(OBJS) prac3.o
+	$(CC) $(OPTS) $(OBJS) prac3.o -o prac3
+
+prac3.o: prac3.cc Gameboard.h Game.h Piece.h Coordinate.h
+	$(CC) $(OPTS) -c prac3.cc
+
+Coordinate.o: Coordinate.cc Coordinate.h
+	$(CC) $(OPTS) -c Coordinate.cc
+
+Shape.o: Shape.cc Shape.h
+	$(CC) $(OPTS) -c Shape.cc
+
+Piece.o: Piece.cc Piece.h Shape.h Coordinate.h
+	$(CC) $(OPTS) -c Piece.cc
+
+Gameboard.o: Gameboard.cc Gameboard.h Piece.h Coordinate.h
+	$(CC) $(OPTS) -c Gameboard.cc
+
+Game.o: Game.cc Game.h Gameboard.h
+	$(CC) $(OPTS) -c Game.cc
+
+
+#--------------------
+
+testAC-Coordinate: $(OBJS)
+	@echo
+	@echo "Compilando pruebas unitarias de Coordinate"
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Coordinate
+	@env PERL_BADLANG=0 $(CXXTESTGEN) --error-printer -o $(CORRDIR)/p3TestSuiteAC-Coordinate.cc $(CXXTESTSUITEACCOORDINATE)
+	g++ -std=c++11 -g -I. -I$(CORRDIR)/test -o p3TestSuiteAC-Coordinate $(CORRDIR)/p3TestSuiteAC-Coordinate.cc Coordinate.o
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Coordinate.cc
+	@mv p3TestSuiteAC-Coordinate $(CORRDIR)
+
+testAC-Piece: $(OBJS)
+	@echo
+	@echo "Compilando pruebas unitarias de Piece"
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Piece
+	@env PERL_BADLANG=0 $(CXXTESTGEN) --error-printer -o $(CORRDIR)/p3TestSuiteAC-Piece.cc $(CXXTESTSUITEACPIECE)
+	g++ -std=c++11 -g -I. -I$(CORRDIR)/test -o p3TestSuiteAC-Piece $(CORRDIR)/p3TestSuiteAC-Piece.cc Piece.o Shape.o Coordinate.o
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Piece.cc
+	@mv p3TestSuiteAC-Piece $(CORRDIR)
+
+testAC-Gameboard: $(OBJS)
+	@echo
+	@echo "Compilando pruebas unitarias de Gameboard"
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Gameboard
+	@env PERL_BADLANG=0 $(CXXTESTGEN) --error-printer -o $(CORRDIR)/p3TestSuiteAC-Gameboard.cc $(CXXTESTSUITEACGAMEBOARD)
+	g++ -std=c++11 -g -I. -I$(CORRDIR)/test -o p3TestSuiteAC-Gameboard $(CORRDIR)/p3TestSuiteAC-Gameboard.cc Gameboard.o Piece.o Shape.o Coordinate.o
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Gameboard.cc
+	@mv p3TestSuiteAC-Gameboard $(CORRDIR)
+
+testAC-Game: $(OBJS)
+	@echo
+	@echo "Compilando pruebas unitarias de Game"
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Game
+	@env PERL_BADLANG=0 $(CXXTESTGEN) --error-printer -o $(CORRDIR)/p3TestSuiteAC-Game.cc $(CXXTESTSUITEACGAME)
+	g++ -std=c++11 -g -I. -I$(CORRDIR)/test -o p3TestSuiteAC-Game $(CORRDIR)/p3TestSuiteAC-Game.cc Game.o Gameboard.o Piece.o Shape.o Coordinate.o
+	@rm -f $(CORRDIR)/p3TestSuiteAC-Game.cc
+	@mv p3TestSuiteAC-Game $(CORRDIR)
+
+# alias de compatibilidad para scripts del corrector
+p3TestSuiteAC-Coordinate: testAC-Coordinate
+
+p3TestSuiteAC-Piece: testAC-Piece
+
+p3TestSuiteAC-Gameboard: testAC-Gameboard
+
+p3TestSuiteAC-Game: testAC-Game
+
+clean:
+	rm -f $(OBJS)
+	rm -rf $(CORRDIR)/p3TestSuite*
+	rm -f mata
+	rm -rf ./p3TestSuite*

@@ -1,3 +1,4 @@
+// DNI 55392060X ILIEV ARKHIPOV , DANIEL VALERIEV
 #include "Piece.h"
 
 Piece::Piece(){
@@ -7,24 +8,17 @@ Piece::Piece(){
 }
 
 Piece::Piece(const Piece &other){
-    fixed = other.isFixed();
-    orientation = other.getOrientation();
-    type = other.getType();
+    fixed = other.fixed;
+    orientation = other.orientation;
+    type = other.type;
 }
 
 Piece::~Piece(){
-}
 
-void Piece::setFixed(bool fixed){
-    this -> fixed = fixed;
-}
-
-void Piece::setOrientation(Orientation orientation){
-    this -> orientation = orientation;
 }
 
 void Piece::rotateClockwise(){
-    switch(orientation){
+    switch (this->getOrientation()){
         case D0:
             orientation = D270;
             break;
@@ -41,7 +35,7 @@ void Piece::rotateClockwise(){
 }
 
 void Piece::rotateCounterClockwise(){
-    switch(orientation){
+    switch(this->getOrientation()){
         case D0:
             orientation = D90;
             break;
@@ -57,61 +51,27 @@ void Piece::rotateCounterClockwise(){
     }
 }
 
-vector<Coordinate> Piece::getFinalPositions(const Coordinate &c) const{
-    vector<Coordinate> shapeCoord;
-    int **shape = Shape::getShape(orientation,type);
-    for(int i = c.getRow(); i <c.getRow() + 4; i++){
-        for(int j = c.getColumn(); j <c.getColumn() + 4; j++){
+vector<Coordinate> Piece::getFinalPositions(const Coordinate &coord) const{
+    vector<Coordinate> shapeCoords;
+    int **shape = Shape::getShape(orientation, type);
+    for(unsigned int i = 0; i < kSHAPESIZE; i++){
+        for(unsigned int j = 0; j < kSHAPESIZE; j++){
             if(shape[i][j] == 1){
-                Coordinate tempCord(i, j);
-                shapeCoord.push_back(tempCord);
+                Coordinate tempCord(coord.getRow() + i, coord.getColumn() + j);
+                shapeCoords.push_back(tempCord);
                 tempCord.~Coordinate();
             }
         }
     }
-    delete shape;
-    return shapeCoord;
+
+    for(unsigned int i = 0; i < kSHAPESIZE; i++){
+        delete[] shape[i];
+    }
+    delete[] shape;
+    return shapeCoords;
 }
 
-ostream &operator<<(ostream &os, const Piece &p){
-    os << '[' << "type=";
-    switch (p.getType()){
-        case PT_I:
-            os << "I, ";
-            break;
-        case PT_J:
-            os << "J, ";
-            break;
-        case PT_L:
-            os << "L, ";
-            break;
-        case PT_O:
-            os << "O, ";
-            break;
-        case PT_S:
-            os << "S, ";
-            break;
-        case PT_Z:
-            os << "Z, ";
-            break;
-        case PT_T:
-            os << "T, ";
-            break;
-    }
-    os << "fixed=" << p.isFixed() << ", " << "orientation=";
-    switch(p.getOrientation()){
-        case D0:
-            os << "0]" << "'\n";
-            break;
-        case D90:
-            os << "90]" << "'\n";
-            break;
-        case D180:
-            os << "180]" << "'\n";
-            break;
-        case D270:
-            os << "270]" << "'\n";
-            break;
-    }
+ostream& operator<<(ostream &os, Piece &p){
+    os << "[type=" << p.type << ", fixed=" << p.fixed << ", orientation=" << p.orientation << ']' << '\n';
     return os;
 }

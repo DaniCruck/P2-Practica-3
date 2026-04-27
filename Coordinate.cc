@@ -1,5 +1,5 @@
+// DNI 55392060X ILIEV ARKHIPOV , DANIEL VALERIEV
 #include "Coordinate.h"
-
 Coordinate::Coordinate(){
     row = 0;
     column = 0;
@@ -7,17 +7,21 @@ Coordinate::Coordinate(){
 
 Coordinate::Coordinate(int row, int col){
     this -> row = row;
-    column = col;
+    this -> column = col;
 }
 
 Coordinate::~Coordinate(){
+    
 }
 
 Coordinate Coordinate::add(const Coordinate &other) const{
-    return Coordinate(row + other.getRow(), column + other.getColumn());
+    int newRow = this->row + other.getRow();
+    int newCol = this->column + other.getColumn();
+    Coordinate coord(newRow, newCol);
+    return coord; 
 }
- 
-ostream& operator<<(ostream &os, const Coordinate &c){
-    os << '[' << c.row << ',' << c.column << ']';
+
+ostream &operator<<(ostream &os, const Coordinate &c){
+    os << '[' << c.getRow() << ',' << c.getColumn() << ']';
     return os;
 }

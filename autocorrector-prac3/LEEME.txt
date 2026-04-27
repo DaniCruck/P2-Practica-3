@@ -1,0 +1,23 @@
+Programación 2 - Autocorrector práctica 3
+=========================================
+
+Para pasar el autocorrector, hay que copiar todos los ficheros de la
+práctica (.cc y .h) en un directorio (p.ej. p3), incluyendo los ficheros 
+Shape.cc, Shape.h y prac3.cc, entrar desde el terminal en el directorio 
+autocorrector-prac3 (que debe ser un subdirectorio de p3) y ejecutar:
+
+./autocorrectorP2p3.sh
+
+-----------------------------------------------------------
+
+El autocorrector incluye pruebas unitarias de las clases de la práctica, y 
+una partida de prueba (usando el prac3.cc)
+
+En el directorio 'pruebas' está el fichero 01-entrada-ejemplo.txt que tiene
+las órdenes que se introducirían al programa prac3 para simular una partida;
+en el directorio 'salida-correcta-esperada' está el fichero con la salida
+correcta de esa partida
+
+En el directorio 'test' hay varios ficheros 'p3TestSuite*.h' con pruebas
+unitarias para cada clase, puedes editar esos ficheros para añadir tus propias
+pruebas
